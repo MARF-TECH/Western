@@ -15,7 +15,7 @@ build_job:
   tags: 
     - CICD-WIN03-1909
   script:
-    - docker build -t ${mDOCKER_IMAGE}-${WINDOWS_VERSION} .
+    - docker build -t ${mDOCKER_IMAGE}-${WINDOWS_VERSION} -f western.core\dockerfile .
     - docker tag ${mDOCKER_IMAGE}-${WINDOWS_VERSION} ${mREPO_URL_SNAPSHOT}-${WINDOWS_VERSION}:${CI_JOB_ID}
     - docker push ${mREPO_URL_SNAPSHOT}-${WINDOWS_VERSION}:${CI_JOB_ID}
   

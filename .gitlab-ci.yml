@@ -20,14 +20,14 @@ build_job:
     - docker push ${mREPO_URL_SNAPSHOT}-${WINDOWS_VERSION}:${CI_JOB_ID}
   
 
-#test_job:
-#  image: mcr.microsoft.com/dotnet/core/sdk:3.1-nanoserver-1909
-#  stage: test
-#  variables:
-#    test_path: "$project/Western.Test"
-#  before_script:
-#    - dotnet tool install dotnet-reportgenerator-globaltool --tool-path /tools
-#  script:
-#    - echo "western testing"
-#    - "cd $test_path"
-#    - dotnet test --logger "trx;LogFileName=western_test_results.xml" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=/out/testresults/coverage/ /p:Exclude="[xunit.*]*" --results-directory /out/testresults
+test_job:
+  image: mcr.microsoft.com/dotnet/core/sdk:3.1-nanoserver-1909
+  stage: test
+  variables:
+    test_path: "$project/Western.Test"
+  before_script:
+    - dotnet tool install dotnet-reportgenerator-globaltool --tool-path /tools
+  script:
+    - echo "western testing"
+    - "cd $test_path"
+    - dotnet test --logger "trx;LogFileName=western_test_results.xml" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=/out/testresults/coverage/ /p:Exclude="[xunit.*]*" --results-directory /out/testresults

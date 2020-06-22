@@ -4,13 +4,18 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+   
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+    
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
 
     <PackageReference Include="coverlet.msbuild" Version="2.0.1" />
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
@@ -18,7 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Western.Core\Western.Core.csproj" />
-    <ProjectReference Include="..\Western\Western.csproj" />
   </ItemGroup>
 
   <ItemGroup>

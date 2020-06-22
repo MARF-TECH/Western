@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  western.test:
+    image: ${DOCKER_REGISTRY-}westerntest
+    build:
+      context: .
+      dockerfile: Western.Test\Dockerfile
+
+  western:
+    image: ${DOCKER_REGISTRY-}western
+    build:
+      context: .
+      dockerfile: Western\Dockerfile
+

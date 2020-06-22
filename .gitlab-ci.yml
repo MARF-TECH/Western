@@ -1,19 +1,17 @@
 variables:
-    mDOCKER_IMAGE: "windows-container/applicore-1903"
-    mREPO_URL_SNAPSHOT: "${REPO_DOCKER_HOST}/${REPO_DOCKER_REGISTRY_SNAPSHOT}/windows-container/applicore-1903"
-    mREPO_URL_RELEASE: "${REPO_DOCKER_HOST}/${REPO_DOCKER_REGISTRY_RELEASE}/windows-container/applicore-1903"
+    mDOCKER_IMAGE: "windows-container/westerncore"
+    mREPO_URL_SNAPSHOT: "${REPO_DOCKER_HOST}/${REPO_DOCKER_REGISTRY_SNAPSHOT}/windows-container/westerncore"
+    mREPO_URL_RELEASE: "${REPO_DOCKER_HOST}/${REPO_DOCKER_REGISTRY_RELEASE}/windows-container/westerncore"
     WINDOWS_VERSION: "1909"
   
 stages:
+  - test
   - build
-
-default:  
-#  before_script:
-#   - echo $REPO_DOCKER_PASSWORD | docker login -u $REPO_DOCKER_USER --password-stdin $REPO_DOCKER_HOST
   
 build_job:
-
   stage: build
+# before_script:
+#   - echo $REPO_DOCKER_PASSWORD | docker login -u $REPO_DOCKER_USER --password-stdin $REPO_DOCKER_HOST
   tags: 
     - CICD-WIN03-1909
   script:
@@ -22,10 +20,14 @@ build_job:
     - docker push ${mREPO_URL_SNAPSHOT}-${WINDOWS_VERSION}:${CI_JOB_ID}
   
 
-#test:
+#test_job:
+#  image: mcr.microsoft.com/dotnet/core/sdk:3.1-nanoserver-1909
 #  stage: test
 #  variables:
-#    test_path: "$project/test/$project.Tests"
+#    test_path: "$project/Western.Test"
+#  before_script:
+#    - dotnet tool install dotnet-reportgenerator-globaltool --tool-path /tools
 #  script:
+#    - echo "western testing"
 #    - "cd $test_path"
-#    - "dotnet test"
+#    - dotnet test --logger "trx;LogFileName=western_test_results.xml" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=/out/testresults/coverage/ /p:Exclude="[xunit.*]*" --results-directory /out/testresults

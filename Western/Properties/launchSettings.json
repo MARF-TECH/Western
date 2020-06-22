@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Western": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

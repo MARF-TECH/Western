@@ -1,0 +1,31 @@
+variables:
+    mDOCKER_IMAGE: "windows-container/applicore-1903"
+    mREPO_URL_SNAPSHOT: "${REPO_DOCKER_HOST}/${REPO_DOCKER_REGISTRY_SNAPSHOT}/windows-container/applicore-1903"
+    mREPO_URL_RELEASE: "${REPO_DOCKER_HOST}/${REPO_DOCKER_REGISTRY_RELEASE}/windows-container/applicore-1903"
+    WINDOWS_VERSION: "1909"
+  
+stages:
+  - build
+
+default:  
+#  before_script:
+#   - echo $REPO_DOCKER_PASSWORD | docker login -u $REPO_DOCKER_USER --password-stdin $REPO_DOCKER_HOST
+  
+build_job:
+
+  stage: build
+  tags: 
+    - CICD-WIN03-1909
+  script:
+    - docker build -t ${mDOCKER_IMAGE}-${WINDOWS_VERSION} .
+    - docker tag ${mDOCKER_IMAGE}-${WINDOWS_VERSION} ${mREPO_URL_SNAPSHOT}-${WINDOWS_VERSION}:${CI_JOB_ID}
+    - docker push ${mREPO_URL_SNAPSHOT}-${WINDOWS_VERSION}:${CI_JOB_ID}
+  
+
+#test:
+#  stage: test
+#  variables:
+#    test_path: "$project/test/$project.Tests"
+#  script:
+#    - "cd $test_path"
+#    - "dotnet test"
